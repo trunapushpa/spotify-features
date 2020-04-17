@@ -3,12 +3,12 @@ import json
 import os
 import statistics
 
-file = open("western.csv", "w", newline='')
+file = open("indian.csv", "w", newline='')
 writer = csv.writer(file)
-writer.writerow(["year", "danceability", "energy", "key", "loudness", "speechiness",
-                 "acousticness", "instrumentalness", "liveness", "valence", "tempo"])
+writer.writerow(["Year", "Danceability", "Energy", "Key", "Loudness", "Speechiness",
+                 "Acousticness", "Instrumentalness", "Liveness", "Valence", "Tempo"])
 for year in range(0, 21):
-    features_array = json.load(open(os.path.join("western_jsons", "20{:02d}.json".format(year)), 'r'))
+    features_array = json.load(open(os.path.join("indian_jsons", "20{:02d}.json".format(year)), 'r'))
     danceability = []
     energy = []
     key = []

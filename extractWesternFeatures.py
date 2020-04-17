@@ -1,3 +1,4 @@
+import csv
 import json
 import os
 
@@ -15,8 +16,23 @@ year = 0
 for playlist_link in playlists_yearwise:
     playlist = sp.playlist_tracks(playlist_link, limit=100)
     ids = []
+    file = open(os.path.join("western_track_details", "20{:02d}.csv".format(year)), "w", newline='')
+    writer = csv.writer(file)
+    writer.writerow(["Song", "Artists", "Release Date", "Popularity"])
+    print(year)
     for item in playlist['items']:
-        ids.append(item['track']['id'])
+        cur_id = item['track']['id']
+        if not cur_id:
+            continue
+        ids.append(cur_id)
+        track_ret = sp.track(cur_id)
+        artists = []
+        for artist in track_ret['artists']:
+            artists.append(artist['name'])
+        try:
+            writer.writerow([track_ret['name'], artists, track_ret["album"]["release_date"], track_ret["popularity"]])
+        except:
+            continue
     features = sp.audio_features(tracks=ids)
     file = os.path.join("western_jsons", "20{:02d}.json".format(year))
     output_file = open(file=file, mode='w', encoding='utf-8')
