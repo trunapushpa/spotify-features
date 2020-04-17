@@ -10,7 +10,7 @@ client_credentials_manager = SpotifyClientCredentials(client_id=client_id, clien
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 sp.trace = False
 
-for year in range(8, 15):
+for year in range(0, 21):
 
     # Read input tracks list for current year
     file = os.path.join("indian_txts", "20{:02d}.txt".format(year))
